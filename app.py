@@ -3,7 +3,7 @@ import random
 
 st.set_page_config(page_title="💘 Love Compatibility Matchmaker", page_icon="💘")
 
-st.markdown("<h1 style='text-align: center; color: #ff66b2;'>💘 MBTI Love Compatibility Matchmaker 💘</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #ff66b2;'>💘 Kitty's MBTI Love Compatibility Matchmaker 💘</h1>", unsafe_allow_html=True)
 st.markdown("Discover if you're the ultimate duo based on MBTI, zodiac signs, favorite characters, and snack vibes. 🌟")
 
 mbti_types = [
