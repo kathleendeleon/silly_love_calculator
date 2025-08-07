@@ -1,2 +1,2 @@
-# Your Soulmate await!
+# Your Soulmate awaits!
 https://sillylovecalculator.streamlit.app/
