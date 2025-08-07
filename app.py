@@ -42,4 +42,38 @@ with st.form("love_form"):
     mbti2 = st.selectbox("Partner's MBTI", ["INTJ", "INFP", "ENFP", "ISTP", "ESFJ", "ENTP", "ISFJ"])
     zodiac2 = st.selectbox("Partner's Zodiac", [
         "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
-        "Libra", "Scorpio",
+        "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
+    char2 = st.text_input("Partner's Favorite Movie/TV Character")
+    snack2 = st.text_input("Partner's Favorite Snack")
+
+    submitted = st.form_submit_button("🔮 Reveal Love Match")
+
+# Results
+if submitted:
+    st.markdown("## 💞 Compatibility Results")
+    score = random.randint(60, 98)
+    st.success(f"🌹 {name1} and {name2} are **{score}% compatible!**")
+
+    st.markdown(f"""
+### 💖 Couple Vibes:
+- **MBTI Match**: {mbti1} 💘 {mbti2}
+- **Zodiac**: {zodiac1} + {zodiac2}
+- **Fave Characters**: {char1} + {char2}
+- **Snacks**: {snack1} & {snack2}
+""")
+
+    st.markdown("## 🃏 Tarot Love Forecast")
+
+    tarot_cards = list(tarot_descriptions.keys())
+    selected = random.sample(tarot_cards, 3)
+    positions = ["Past", "Present", "Future"]
+    for i in range(3):
+        st.markdown(f"### {positions[i]}: {selected[i]}")
+        st.info(tarot_descriptions[selected[i]])
+
+    st.markdown("## 🔥 Bonus Modes")
+    if score < 70:
+        st.warning("💔 Roast Mode: Y'all might be cosmic frenemies. Try again in your next life!")
+    else:
+        st.info("💌 Your destiny is written in the stars... and snacks.")
+
