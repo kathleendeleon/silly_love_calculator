@@ -1,70 +1,102 @@
-
 import streamlit as st
-from PIL import Image
+import random
 
-st.set_page_config(page_title="💘 Love Match Analyzer", page_icon="💘")
+st.set_page_config(page_title="💘 Love Compatibility Matchmaker", page_icon="💘")
 
-# Aesthetic header
-st.markdown(
-    "<h1 style='text-align: center; color: #e75480;'>💘 Love Match Analyzer 💘</h1>",
-    unsafe_allow_html=True,
-)
+st.markdown("<h1 style='text-align: center; color: #ff66b2;'>💘 MBTI Love Compatibility Matchmaker 💘</h1>", unsafe_allow_html=True)
+st.markdown("Discover if you're the ultimate duo based on MBTI, zodiac signs, favorite characters, and snack vibes. 🌟")
 
-st.markdown("Welcome to your personalized compatibility experience! 💫 Fill in your preferences and see how they align with your cosmic and cinematic love fate. ✨")
+mbti_types = [
+    "INFP", "ENFP", "INFJ", "ENFJ", "INTJ", "ENTJ", "INTP", "ENTP",
+    "ISFP", "ESFP", "ISTP", "ESTP", "ISFJ", "ESFJ", "ISTJ", "ESTJ"
+]
 
-with st.form("match_form"):
-    col1, col2 = st.columns(2)
+zodiac_signs = [
+    "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
+    "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"
+]
 
-    with col1:
-        mbti = st.selectbox("💡 Your MBTI", [
-            "INTJ", "INTP", "ENTJ", "ENTP",
-            "INFJ", "INFP", "ENFJ", "ENFP",
-            "ISTJ", "ISFJ", "ESTJ", "ESFJ",
-            "ISTP", "ISFP", "ESTP", "ESFP"
-        ])
-        sign = st.selectbox("🔮 Your Zodiac Sign", [
-            "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
-            "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"
-        ])
-    with col2:
-        character = st.text_input("🎬 Favorite Movie or TV Character")
-        snack = st.text_input("🍿 Favorite Snack")
+compatibility_matrix = [[5, 5, 5, 5, 4, 4, 4, 4, 1, 1, 1, 1, 2, 2, 1, 1], [5, 5, 5, 5, 4, 4, 4, 5, 1, 1, 1, 1, 2, 2, 1, 1], [5, 5, 5, 5, 4, 4, 4, 4, 1, 1, 1, 1, 2, 2, 2, 1], [5, 5, 5, 5, 4, 4, 4, 5, 1, 1, 1, 1, 2, 2, 2, 1], [4, 4, 4, 4, 5, 5, 5, 4, 2, 2, 2, 2, 3, 3, 2, 2], [4, 4, 4, 4, 5, 5, 5, 5, 2, 2, 2, 2, 3, 3, 2, 2], [4, 4, 4, 4, 5, 5, 5, 5, 2, 2, 2, 2, 3, 3, 3, 3], [5, 5, 4, 5, 4, 5, 5, 5, 2, 2, 2, 2, 3, 3, 3, 3], [2, 2, 2, 2, 3, 3, 3, 3, 5, 5, 5, 4, 3, 3, 3, 3], [2, 2, 2, 2, 3, 3, 3, 3, 5, 5, 4, 4, 3, 3, 3, 3], [2, 2, 2, 2, 3, 3, 3, 3, 5, 4, 5, 4, 3, 3, 3, 3], [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 3, 3, 3, 3], [2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 5, 5, 5, 4], [2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 5, 5, 5, 5], [2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 5, 5, 5, 5], [2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 5, 5, 5]]
 
-    submitted = st.form_submit_button("💞 Find Your Match Vibes!")
+def get_compatibility_score(type1, type2):
+    idx1 = mbti_types.index(type1)
+    idx2 = mbti_types.index(type2)
+    score = compatibility_matrix[idx1][idx2]
+    return score
 
-if submitted:
-    st.markdown("---")
-    st.subheader("🧠 Compatibility Vibes Summary")
-
-    # Sample aesthetic logic
-    if mbti in ["INFP", "ENFP", "INFJ", "ISFP"]:
-        st.success("You're a tender soul with deep emotional currents. You pair well with someone who balances spontaneity with grounding energy.")
-    elif mbti in ["INTJ", "ENTJ"]:
-        st.success("You're a strategic lover, looking for purpose and power in your connections. You vibe best with someone emotionally aware and patient.")
+def interpret_score(score):
+    if score == 5:
+        return "💖 Often Listed as an Ideal Match"
+    elif score == 4:
+        return "🌟 It's Got a Good Chance"
+    elif score == 3:
+        return "💡 One Sided Match"
+    elif score == 2:
+        return "⚠️ It Could Work, But Not Ideal"
     else:
-        st.success("Your type craves adventure, joy, and playful banter. You thrive with partners who embrace life’s spontaneity.")
+        return "🚨 Uh-Oh, Think This One Through"
 
-    if "chocolate" in snack.lower():
-        st.markdown("🍫 Your snack of choice shows you’re a romantic at heart—rich, classic, and sweet.")
-    elif "chips" in snack.lower():
-        st.markdown("🥔 You like your love salty and crunchy—bold, addictive, and a little dangerous.")
-    elif snack:
-        st.markdown(f"🍭 '{snack}' is such a unique craving! That says a lot about your quirky and lovable side.")
+def funny_description(score):
+    options = {
+        5: [
+            "You're the peanut butter to their jelly. Wedding Pinterest board ready.",
+            "Soulmates. You probably finish each other's sentences and sandwiches.",
+            "This duo could write a rom-com and star in it. Netflix deal pending."
+        ],
+        4: [
+            "You're like WiFi and a good password—meant to connect.",
+            "Arguments may occur, but so do shared Spotify playlists and tacos.",
+            "Definitely a 'we met at Trader Joe's' love story waiting to happen."
+        ],
+        3: [
+            "You’re vibing on one channel while they're buffering. Could be cute or chaotic.",
+            "One of you is falling hard. The other? Still reading red flags as love letters.",
+            "A bit like pineapple on pizza—unexpected, and someone definitely has opinions."
+        ],
+        2: [
+            "This might require a relationship user manual... and maybe a fire extinguisher.",
+            "You talk feelings, they talk facts. But hey, opposites *sometimes* attract?",
+            "Could work if you both take turns being the emotional support burrito."
+        ],
+        1: [
+            "This match is like trying to hug a cactus—best from a safe distance.",
+            "You’ll learn a lot… mostly about patience and how to bite your tongue.",
+            "Like oil and water... in a blender... on fire."
+        ]
+    }
+    return random.choice(options[score])
 
-    st.subheader("✨ Star-Crossed Forecast")
-    if sign in ["Aries", "Leo", "Sagittarius"]:
-        st.markdown("🔥 You're a fire sign—passionate, daring, and magnetic. You vibe with confident, driven types.")
-    elif sign in ["Taurus", "Virgo", "Capricorn"]:
-        st.markdown("🌱 An earth sign—you crave stability, depth, and shared values. You ground and grow your relationships.")
-    elif sign in ["Gemini", "Libra", "Aquarius"]:
-        st.markdown("🌬️ As an air sign, you're curious, expressive, and drawn to mental stimulation and lively dialogue.")
-    else:
-        st.markdown("🌊 Water signs like you are emotional, nurturing, and intuitive—you seek soulful connections.")
+st.markdown("### 💁 Partner 1")
+col1, col2 = st.columns(2)
+with col1:
+    mbti1 = st.selectbox("MBTI Type", mbti_types, key="mbti1")
+    zodiac1 = st.selectbox("Zodiac Sign", zodiac_signs, key="zodiac1")
+with col2:
+    char1 = st.text_input("Favorite Movie Character", key="char1")
+    snack1 = st.text_input("Favorite Snack", key="snack1")
 
-    if character:
-        st.subheader("🎬 Inspired by Your Favorite Character")
-        st.markdown(f"If you love **{character}**, you probably admire their traits—and your match should too! That says a lot about your values and desires in love 💗")
+st.markdown("### 💘 Partner 2")
+col3, col4 = st.columns(2)
+with col3:
+    mbti2 = st.selectbox("MBTI Type", mbti_types, key="mbti2")
+    zodiac2 = st.selectbox("Zodiac Sign", zodiac_signs, key="zodiac2")
+with col4:
+    char2 = st.text_input("Favorite Movie Character", key="char2")
+    snack2 = st.text_input("Favorite Snack", key="snack2")
+
+if st.button("🔮 Reveal the Love Match!"):
+    score = get_compatibility_score(mbti1, mbti2)
+    meaning = interpret_score(score)
+    funny = funny_description(score)
 
     st.markdown("---")
+    st.subheader("💌 Compatibility Summary")
+    st.markdown(f"**{mbti1} ({zodiac1})** ❤️ **{mbti2} ({zodiac2})** = **Score: {score}/5**")
+    st.success(meaning)
+    st.info(f"📝 {funny}")
+
+    st.markdown("### 🥰 Love Vibe Breakdown")
+    st.markdown(f"- **{char1}** meets **{char2}** on a romantic quest for {snack1} & {snack2}.")
+    st.markdown(f"- Will this snack-fueled, zodiac-approved, MBTI-entangled duo thrive? Only time—and maybe a horoscope—will tell!")
+
     st.balloons()
-    st.markdown("<p style='text-align: center;'>✨ Love isn’t logic—it’s vibe ✨</p>", unsafe_allow_html=True)
