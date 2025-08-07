@@ -1,9 +1,10 @@
+
 import streamlit as st
 import random
 
 st.set_page_config(page_title="💘 Love Compatibility Matchmaker", page_icon="💘")
 
-st.markdown("<h1 style='text-align: center; color: #ff66b2;'>💘 Kath's MBTI Love Compatibility Matchmaker 💘</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #ff66b2;'>💘 MBTI Love Compatibility Matchmaker 💘</h1>", unsafe_allow_html=True)
 st.markdown("Discover if you're the ultimate duo based on MBTI, zodiac signs, favorite characters, and snack vibes. 🌟")
 
 mbti_types = [
@@ -100,3 +101,22 @@ if st.button("🔮 Reveal the Love Match!"):
     st.markdown(f"- Will this snack-fueled, zodiac-approved, MBTI-entangled duo thrive? Only time—and maybe a horoscope—will tell!")
 
     st.balloons()
+
+
+st.markdown("---")
+st.markdown("### 😬 Feeling brave? Try **Ex Compatibility Roast Mode**")
+if st.button("🔥 Roast My Ex"):
+    roast_lines = [
+        "Yeah... this one was better off as a plot twist.",
+        "Like mixing toothpaste and orange juice. Just—no.",
+        "Even the stars gave this one a side-eye.",
+        "Your MBTI types clashed like two cats in a bathtub.",
+        "Snack compatibility: 0%. One’s popcorn, the other’s raw celery.",
+        "This wasn’t a rom-com. This was a horror-com.",
+        "They were your villain origin story, huh?",
+        "Not a match. Just a lesson… with receipts.",
+        "If red flags were currency, y’all would’ve been billionaires.",
+        "Astrologers are still recovering from this alignment disaster."
+    ]
+    st.error("💔 Roast Mode Activated: " + random.choice(roast_lines))
+
