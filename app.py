@@ -24,11 +24,31 @@ tarot_descriptions = {
     "Death": "Signifies endings, transformation, and rebirth."
 }
 
+mbti_types = [
+    "INTJ", "INTP", "ENTJ", "ENTP",
+    "INFJ", "INFP", "ENFJ", "ENFP",
+    "ISTJ", "ISFJ", "ESTJ", "ESFJ",
+    "ISTP", "ISFP", "ESTP", "ESFP"
+]
+
+# Compatibility roast descriptions
+def funny_compatibility_summary(score):
+    if score > 90:
+        return "🔥 Soulmate energy! Y’all are like PB & J—sweet, sticky, and destined."
+    elif score > 80:
+        return "💞 A power couple with the occasional rom-com misunderstanding."
+    elif score > 70:
+        return "🫶 Not bad! With snacks and therapy, you could last forever-ish."
+    elif score > 60:
+        return "😬 There’s hope… if Mercury isn’t in retrograde and nobody forgets to text back."
+    else:
+        return "🚩 Cosmic red flags detected. Proceed only if you're into emotional roller coasters."
+
 # Form for user and partner input
 with st.form("love_form"):
-    st.subheader("💕 Enter Partner Info")
+    st.subheader("💕 Enter Your Info")
     name1 = st.text_input("Your Name")
-    mbti1 = st.selectbox("Your MBTI", ["INTJ", "INFP", "ENFP", "ISTP", "ESFJ", "ENTP", "ISFJ"])
+    mbti1 = st.selectbox("Your MBTI", mbti_types)
     zodiac1 = st.selectbox("Your Zodiac", [
         "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
         "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
@@ -39,7 +59,7 @@ with st.form("love_form"):
 
     st.subheader("❤️ Partner Info")
     name2 = st.text_input("Partner's Name")
-    mbti2 = st.selectbox("Partner's MBTI", ["INTJ", "INFP", "ENFP", "ISTP", "ESFJ", "ENTP", "ISFJ"])
+    mbti2 = st.selectbox("Partner's MBTI", mbti_types)
     zodiac2 = st.selectbox("Partner's Zodiac", [
         "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
         "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
@@ -51,19 +71,19 @@ with st.form("love_form"):
 # Results
 if submitted:
     st.markdown("## 💞 Compatibility Results")
-    score = random.randint(60, 98)
+    score = random.randint(55, 98)
     st.success(f"🌹 {name1} and {name2} are **{score}% compatible!**")
+    st.markdown(f"💌 {funny_compatibility_summary(score)}")
 
     st.markdown(f"""
 ### 💖 Couple Vibes:
 - **MBTI Match**: {mbti1} 💘 {mbti2}
-- **Zodiac**: {zodiac1} + {zodiac2}
+- **Zodiac Signs**: {zodiac1} + {zodiac2}
 - **Fave Characters**: {char1} + {char2}
-- **Snacks**: {snack1} & {snack2}
+- **Snack Combo**: {snack1} & {snack2}
 """)
 
     st.markdown("## 🃏 Tarot Love Forecast")
-
     tarot_cards = list(tarot_descriptions.keys())
     selected = random.sample(tarot_cards, 3)
     positions = ["Past", "Present", "Future"]
