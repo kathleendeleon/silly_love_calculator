@@ -7,6 +7,22 @@ mbti_types = [
     "ISFP", "ESFP", "ISTP", "ESTP", "ISFJ", "ESFJ", "ISTJ", "ESTJ"
 ]
 
+# Zodiac signs and their love insights
+zodiac_signs = {
+    "Aries": "🔥 Passionate but impatient. Needs sparks AND stability.",
+    "Taurus": "🌿 Loyal and indulgent. Feed them snacks and love.",
+    "Gemini": "🌬️ Chatty, curious, and prone to ghosting their own emotions.",
+    "Cancer": "🌊 Deep feeler, moon child. Handle with care or tissues.",
+    "Leo": "🌞 Loves hard, but loves themselves just a little more.",
+    "Virgo": "🌾 Overanalyzing everything you just said. But with love.",
+    "Libra": "⚖️ Charm machine. Can’t pick a restaurant or a partner.",
+    "Scorpio": "🦂 Loyal, intense, mysterious. Dangerously hot.",
+    "Sagittarius": "🔥 Adventure-loving flirt with commitment allergies.",
+    "Capricorn": "⛰️ Ambitious and guarded. Will schedule love on a spreadsheet.",
+    "Aquarius": "🌌 Emotionally intelligent or emotionally unavailable. Or both.",
+    "Pisces": "🐟 Romantic dreamers. Will write you poetry and cry during it."
+}
+
 # Compatibility chart scores
 legend_scores = {
     "blue": 100,
@@ -86,13 +102,15 @@ def draw_tarot():
 
 # Streamlit App
 st.set_page_config("MBTI Love Match", page_icon="💘")
-st.title("💘 Kath's MBTI Love Match Analyzer")
+st.title("💘 MBTI Love Match Analyzer")
 
 col1, col2 = st.columns(2)
 with col1:
     user1 = st.selectbox("Select Your MBTI Type:", mbti_types, index=0)
+    zodiac1 = st.selectbox("Your Zodiac Sign:", list(zodiac_signs.keys()))
 with col2:
     user2 = st.selectbox("Select Their MBTI Type:", mbti_types, index=1)
+    zodiac2 = st.selectbox("Their Zodiac Sign:", list(zodiac_signs.keys()))
 
 if st.button("💞 Calculate Love Match"):
     key = (user1, user2)
@@ -104,6 +122,10 @@ if st.button("💞 Calculate Love Match"):
     st.markdown(f"**Score:** {score}/100")
     st.markdown(f"**Match Type:** {color_badge[color]}")
     st.info(get_match_description(score))
+
+    st.subheader("🌟 Zodiac Insights")
+    st.markdown(f"**You ({zodiac1}):** {zodiac_signs[zodiac1]}")
+    st.markdown(f"**Them ({zodiac2}):** {zodiac_signs[zodiac2]}")
 
     st.subheader("🔮 3-Card Tarot Love Spread")
     tarot_spread = draw_tarot()
@@ -117,3 +139,14 @@ if st.button("💞 Calculate Love Match"):
     with col_future:
         st.markdown("**Future**")
         st.write(f"{tarot_spread[2][0]}: {tarot_spread[2][1]}")
+
+if st.button("🔥 Roast My Ex"):
+    st.subheader("💔 Roast Mode Activated")
+    roasts = [
+        "They were the walking red flag collection 🧨",
+        "Honestly, your ex made Mercury retrograde feel peaceful.",
+        "You dodged a personality black hole. Cheers 🥂",
+        "They thought 'emotional depth' was a swimming pool. Shallow AF.",
+        "Your ex's love language was probably 'confusing signals'."
+    ]
+    st.warning(random.choice(roasts))
