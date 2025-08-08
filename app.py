@@ -7,20 +7,40 @@ mbti_types = [
     "ISFP", "ESFP", "ISTP", "ESTP", "ISFJ", "ESFJ", "ISTJ", "ESTJ"
 ]
 
-# Zodiac signs and their love insights
+# Zodiac signs and their love insights and elements
 zodiac_signs = {
-    "Aries": "🔥 Passionate but impatient. Needs sparks AND stability.",
-    "Taurus": "🌿 Loyal and indulgent. Feed them snacks and love.",
-    "Gemini": "🌬️ Chatty, curious, and prone to ghosting their own emotions.",
-    "Cancer": "🌊 Deep feeler, moon child. Handle with care or tissues.",
-    "Leo": "🌞 Loves hard, but loves themselves just a little more.",
-    "Virgo": "🌾 Overanalyzing everything you just said. But with love.",
-    "Libra": "⚖️ Charm machine. Can’t pick a restaurant or a partner.",
-    "Scorpio": "🦂 Loyal, intense, mysterious. Dangerously hot.",
-    "Sagittarius": "🔥 Adventure-loving flirt with commitment allergies.",
-    "Capricorn": "⛰️ Ambitious and guarded. Will schedule love on a spreadsheet.",
-    "Aquarius": "🌌 Emotionally intelligent or emotionally unavailable. Or both.",
-    "Pisces": "🐟 Romantic dreamers. Will write you poetry and cry during it."
+    "Aries": ("🔥 Passionate but impatient. Needs sparks AND stability.", "Fire"),
+    "Taurus": ("🌿 Loyal and indulgent. Feed them snacks and love.", "Earth"),
+    "Gemini": ("🌬️ Chatty, curious, and prone to ghosting their own emotions.", "Air"),
+    "Cancer": ("🌊 Deep feeler, moon child. Handle with care or tissues.", "Water"),
+    "Leo": ("🌞 Loves hard, but loves themselves just a little more.", "Fire"),
+    "Virgo": ("🌾 Overanalyzing everything you just said. But with love.", "Earth"),
+    "Libra": ("⚖️ Charm machine. Can’t pick a restaurant or a partner.", "Air"),
+    "Scorpio": ("🦂 Loyal, intense, mysterious. Dangerously hot.", "Water"),
+    "Sagittarius": ("🔥 Adventure-loving flirt with commitment allergies.", "Fire"),
+    "Capricorn": ("⛰️ Ambitious and guarded. Will schedule love on a spreadsheet.", "Earth"),
+    "Aquarius": ("🌌 Emotionally intelligent or emotionally unavailable. Or both.", "Air"),
+    "Pisces": ("🐟 Romantic dreamers. Will write you poetry and cry during it.", "Water")
+}
+
+# Element compatibility
+element_compatibility = {
+    ("Fire", "Air"): "🔥🔥 Dynamic Duo! Air fuels Fire.",
+    ("Air", "Fire"): "🔥🔥 Dynamic Duo! Air fuels Fire.",
+    ("Earth", "Water"): "🌍🌊 Grounded and nurturing. Earth supports Water.",
+    ("Water", "Earth"): "🌍🌊 Grounded and nurturing. Earth supports Water.",
+    ("Fire", "Water"): "🔥🌊 Steamy but volatile! Opposites attract.",
+    ("Water", "Fire"): "🔥🌊 Steamy but volatile! Opposites attract.",
+    ("Air", "Earth"): "🌬️🌎 Can be rocky. Air feels confined.",
+    ("Earth", "Air"): "🌬️🌎 Can be rocky. Air feels confined.",
+    ("Fire", "Earth"): "🔥🌍 Passion meets practicality. Needs balance.",
+    ("Earth", "Fire"): "🔥🌍 Passion meets practicality. Needs balance.",
+    ("Air", "Water"): "🌬️🌊 Emotion meets logic. Communication is key.",
+    ("Water", "Air"): "🌬️🌊 Emotion meets logic. Communication is key.",
+    ("Fire", "Fire"): "🔥🔥 Explosive chemistry. Also actual explosions?", 
+    ("Earth", "Earth"): "🌍🌍 Steady and loyal. Possibly a bit too chill.",
+    ("Air", "Air"): "🌬️🌬️ Endless ideas, but who’s doing the dishes?",
+    ("Water", "Water"): "🌊🌊 All the feels. Drowning in emotions (in a good way?)"
 }
 
 # Compatibility chart scores
@@ -32,6 +52,7 @@ legend_scores = {
     "red": 25
 }
 
+mbti_types_list = mbti_types
 compatibility_colors = [
     ["blue","blue","blue","blue","blue","blue","blue","blue","red","red","red","red","red","red","red","red"],
     ["blue","blue","blue","blue","blue","blue","blue","blue","red","red","red","red","red","red","red","red"],
@@ -72,7 +93,6 @@ def get_match_description(score):
     else:
         return "This might belong in the 🚩 museum. Proceed with popcorn. 🍿🫣"
 
-# Emoji/Color badges
 color_badge = {
     "blue": "💙 Ideal Match",
     "teal": "💚 Good Chance",
@@ -81,7 +101,6 @@ color_badge = {
     "red": "❤️‍🔥 Think This One Through"
 }
 
-# Tarot card descriptions
 tarot_cards = [
     ("The Lovers", "A bond filled with passion and mutual respect."),
     ("The Tower", "Sudden changes or revelations shake the relationship."),
@@ -100,16 +119,19 @@ tarot_cards = [
 def draw_tarot():
     return random.sample(tarot_cards, 3)
 
-# Streamlit App
+# Streamlit UI
 st.set_page_config("MBTI Love Match", page_icon="💘")
 st.title("💘 Kath's MBTI Love Match Analyzer")
+st.subheader("_Loveshack bb_ :pink[cool] 😎")
 
 col1, col2 = st.columns(2)
 with col1:
-    user1 = st.selectbox("Select Your MBTI Type:", mbti_types, index=0)
+    name1 = st.text_input("Your Name")
+    user1 = st.selectbox("Your MBTI Type:", mbti_types)
     zodiac1 = st.selectbox("Your Zodiac Sign:", list(zodiac_signs.keys()))
 with col2:
-    user2 = st.selectbox("Select Their MBTI Type:", mbti_types, index=1)
+    name2 = st.text_input("Their Name")
+    user2 = st.selectbox("Their MBTI Type:", mbti_types)
     zodiac2 = st.selectbox("Their Zodiac Sign:", list(zodiac_signs.keys()))
 
 if st.button("💞 Calculate Love Match"):
@@ -117,15 +139,22 @@ if st.button("💞 Calculate Love Match"):
     if key not in compatibility_scores:
         key = (user2, user1)
     score, color = compatibility_scores.get(key, (50, "yellow"))
+
     st.subheader("❤️ Compatibility Results")
-    st.markdown(f"### **{user1} x {user2}**")
+    st.markdown(f"### **{name1 or user1} x {name2 or user2}**")
     st.markdown(f"**Score:** {score}/100")
     st.markdown(f"**Match Type:** {color_badge[color]}")
     st.info(get_match_description(score))
 
     st.subheader("🌟 Zodiac Insights")
-    st.markdown(f"**You ({zodiac1}):** {zodiac_signs[zodiac1]}")
-    st.markdown(f"**Them ({zodiac2}):** {zodiac_signs[zodiac2]}")
+    insight1, elem1 = zodiac_signs[zodiac1]
+    insight2, elem2 = zodiac_signs[zodiac2]
+    st.markdown(f"**{zodiac1} ({elem1})**: {insight1}")
+    st.markdown(f"**{zodiac2} ({elem2})**: {insight2}")
+
+    elem_combo = (elem1, elem2)
+    zodiac_match = element_compatibility.get(elem_combo, "🤷 Element vibes are neutral. Depends on the mood!")
+    st.success(f"**Element Match:** {zodiac_match}")
 
     st.subheader("🔮 3-Card Tarot Love Spread")
     tarot_spread = draw_tarot()
