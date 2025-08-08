@@ -4,9 +4,56 @@ import random
 st.set_page_config(page_title="Love Match Tarot App", page_icon="💘", layout="centered")
 
 st.markdown(
-    "<h1 style='text-align: center; color: pink;'>💘 Love Matchmaker + Tarot Cards 💘</h1>",
-    unsafe_allow_html=True,
+    """
+    <style>
+    /* Background color */
+    body, .stApp {
+        background-color: #ffe6f0;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    /* Center title */
+    h1 {
+        text-align: center;
+        color: #ff69b4;
+        font-size: 3em;
+    }
+
+    /* Subheaders and form labels */
+    .stForm label, .stForm h3, .stForm h2, .stForm h4 {
+        color: #d63384;
+    }
+
+    /* Info box and warnings aesthetic */
+    .stAlert {
+        border-radius: 10px;
+    }
+
+    /* Buttons */
+    .stButton>button {
+        background-color: #ff99cc;
+        color: white;
+        border-radius: 12px;
+        border: none;
+        padding: 0.5em 1em;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .stButton>button:hover {
+        background-color: #ff66a3;
+        transform: scale(1.05);
+    }
+
+    /* Tarot column spacing */
+    .element-container .stColumn {
+        padding: 1em;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
 )
+
 
 # Tarot card meanings
 tarot_descriptions = {
