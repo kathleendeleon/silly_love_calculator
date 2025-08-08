@@ -163,11 +163,12 @@ if st.button("💞 Calculate Love Match"):
 
     st.subheader("❤️ Compatibility Results")
     st.markdown(f"### **{name1 or user1} x {name2 or user2}**")
+    st.markdown(f"**You ({user1})**: {mbti_descriptions[user1]}")
+    st.markdown(f"**Them ({user2})**: {mbti_descriptions[user2]}")
     st.markdown(f"**Score:** {score}/100")
     st.markdown(f"**Match Type:** {color_badge[color]}")
     st.info(get_match_description(score))
-    st.markdown(f"**You ({user1})**: {mbti_descriptions[user1]}")
-    st.markdown(f"**Them ({user2})**: {mbti_descriptions[user2]}")
+
 
     st.subheader("🌟 Zodiac Insights")
     insight1, elem1 = zodiac_signs[zodiac1]
