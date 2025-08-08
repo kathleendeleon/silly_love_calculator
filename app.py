@@ -124,6 +124,8 @@ st.set_page_config("MBTI Love Match", page_icon="💘")
 st.title("💘 Kath's MBTI Love Match Analyzer")
 st.subheader("_Loveshack bb_ 😗")
 
+st.audio("https://ia803409.us.archive.org/31/items/The_B-52s_Love_Shack_1989/The_B-52s_Love_Shack_1989.mp4", format="audio/mpeg", loop=True)
+
 col1, col2 = st.columns(2)
 with col1:
     name1 = st.text_input("Your Name")
