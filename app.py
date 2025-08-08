@@ -4,7 +4,7 @@ import random
 st.set_page_config(page_title="Love Match Tarot App", page_icon="💘", layout="centered")
 
 st.markdown(
-    "<h1 style='text-align: center; color: pink;'>💘 Love Matchmaker + Tarot Cards 💘</h1>",
+    "<h1 style='text-align: center; color: pink;'>💘 Kath's Love Matchmaker + Tarot Cards 💘</h1>",
     unsafe_allow_html=True,
 )
 
