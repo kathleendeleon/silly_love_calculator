@@ -122,7 +122,7 @@ def draw_tarot():
 # Streamlit UI
 st.set_page_config("MBTI Love Match", page_icon="💘")
 st.title("💘 Kath's MBTI Love Match Analyzer")
-st.subheader("_Loveshack bb_ :pink[cool] 😎")
+st.subheader("_Loveshack bb_ 😗")
 
 col1, col2 = st.columns(2)
 with col1:
