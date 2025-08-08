@@ -121,18 +121,18 @@ color_badge = {
 }
 
 tarot_cards = [
-    ("The Lovers", "A bond filled with passion and mutual respect."),
-    ("The Tower", "Sudden changes or revelations shake the relationship."),
-    ("The Star", "Hope and healing bring light to your love story."),
-    ("The Moon", "Hidden truths or mysteries may affect your connection."),
-    ("The Sun", "Joy, warmth, and mutual happiness shine on your bond."),
-    ("The Devil", "Temptation or unhealthy attachment may cloud your love."),
-    ("The Empress", "Fertile grounds for nurturing and romance blossom."),
-    ("The Fool", "A fresh, spontaneous start full of playful energy."),
-    ("Justice", "A relationship balanced with fairness and integrity."),
-    ("Death", "An ending that leads to a transformative new chapter."),
-    ("Temperance", "Harmony, balance, and mutual understanding abound."),
-    ("Judgement", "A moment of reckoning, reflection, or reconciliation."),
+    ("The Lovers", "❤️‍🔥 A bond filled with passion and mutual respect."),
+    ("The Tower", "⚡️ Sudden changes or revelations shake the relationship."),
+    ("The Star", "✨ Hope and healing bring light to your love story."),
+    ("The Moon", "🌝 Hidden truths or mysteries may affect your connection."),
+    ("The Sun", "🌞 Joy, warmth, and mutual happiness shine on your bond."),
+    ("The Devil", "😈 Temptation or unhealthy attachment may cloud your love."),
+    ("The Empress", "👸 Fertile grounds for nurturing and romance blossom."),
+    ("The Fool", "🤡 A fresh, spontaneous start full of playful energy."),
+    ("Justice", "⚖️ A relationship balanced with fairness and integrity."),
+    ("Death", "☠️ An ending that leads to a transformative new chapter."),
+    ("Temperance", "😇 Harmony, balance, and mutual understanding abound."),
+    ("Judgement", "👩‍⚖️ A moment of reckoning, reflection, or reconciliation."),
 ]
 
 def draw_tarot():
