@@ -65,6 +65,25 @@ color_badge = {
     "red": "❤️‍🔥 Think This One Through"
 }
 
+# Tarot card descriptions
+tarot_cards = [
+    ("The Lovers", "A bond filled with passion and mutual respect."),
+    ("The Tower", "Sudden changes or revelations shake the relationship."),
+    ("The Star", "Hope and healing bring light to your love story."),
+    ("The Moon", "Hidden truths or mysteries may affect your connection."),
+    ("The Sun", "Joy, warmth, and mutual happiness shine on your bond."),
+    ("The Devil", "Temptation or unhealthy attachment may cloud your love."),
+    ("The Empress", "Fertile grounds for nurturing and romance blossom."),
+    ("The Fool", "A fresh, spontaneous start full of playful energy."),
+    ("Justice", "A relationship balanced with fairness and integrity."),
+    ("Death", "An ending that leads to a transformative new chapter."),
+    ("Temperance", "Harmony, balance, and mutual understanding abound."),
+    ("Judgement", "A moment of reckoning, reflection, or reconciliation."),
+]
+
+def draw_tarot():
+    return random.sample(tarot_cards, 3)
+
 # Streamlit App
 st.set_page_config("MBTI Love Match", page_icon="💘")
 st.title("💘 MBTI Love Match Analyzer")
@@ -85,3 +104,16 @@ if st.button("💞 Calculate Love Match"):
     st.markdown(f"**Score:** {score}/100")
     st.markdown(f"**Match Type:** {color_badge[color]}")
     st.info(get_match_description(score))
+
+    st.subheader("🔮 3-Card Tarot Love Spread")
+    tarot_spread = draw_tarot()
+    col_past, col_present, col_future = st.columns(3)
+    with col_past:
+        st.markdown("**Past**")
+        st.write(f"{tarot_spread[0][0]}: {tarot_spread[0][1]}")
+    with col_present:
+        st.markdown("**Present**")
+        st.write(f"{tarot_spread[1][0]}: {tarot_spread[1][1]}")
+    with col_future:
+        st.markdown("**Future**")
+        st.write(f"{tarot_spread[2][0]}: {tarot_spread[2][1]}")
