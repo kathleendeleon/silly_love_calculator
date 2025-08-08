@@ -7,6 +7,25 @@ mbti_types = [
     "ISFP", "ESFP", "ISTP", "ESTP", "ISFJ", "ESFJ", "ISTJ", "ESTJ"
 ]
 
+mbti_descriptions = {
+    "INFP": "The poetic softie who overthinks texts and falls in love with your Spotify playlist. 🧚‍♀️📖",
+    "ENFP": "A chaotic glitter cannon of affection who starts 5 new hobbies every month (and might flirt with a houseplant). ✨🌱",
+    "INFJ": "The psychic therapist who’ll analyze your childhood *and* bake you banana bread. 🔮🍞",
+    "ENFJ": "Your overachieving emotional life coach who schedules cuddles and inspires cult followings. 🫶📅",
+    "INTP": "Living in their brain, forgetting your birthday, but inventing a teleportation machine to make it up to you. 🧠🔧",
+    "ENTP": "Flirts via debate, seduces via chaos, disappears via trapdoor. 🌀📣",
+    "INTJ": "Plans your wedding and funeral in the same spreadsheet. Loves deeply, but won’t admit it until Q4. 📊🖤",
+    "ENTJ": "Dominates the boardroom, forgets your dog's name. But buys it stock in your future. 💼💋",
+    "ISFP": "Hot, mysterious, and probably writing a love song about you as we speak. 🎨🎶",
+    "ESFP": "The human disco ball. Will cry over a dog video then drag you to karaoke. 💃😭🎤",
+    "ISTP": "Fixes your sink, ghosts your texts, then reappears like nothing happened. 🛠️🫥",
+    "ESTP": "Red flag in human form, but makes it *so fun*. Will win your heart and a bar fight. 🥊❤️",
+    "ISFJ": "The cinnamon roll who’ll remember your dog’s half-birthday and never leave your side. 🐾🎀",
+    "ESFJ": "PTO president of your heart. Throws themed dinners, texts back immediately, and lowkey controls the group chat. 📱🍝",
+    "ISTJ": "A stoic teddy bear. Takes 5 years to open up, then never stops fixing your life. 🧸📏",
+    "ESTJ": "Emotionally constipated but will help you file your taxes, clean your garage, and organize your soul. 🗂️❤️"
+}
+
 # Zodiac signs and their love insights and elements
 zodiac_signs = {
     "Aries": ("🔥 Passionate but impatient. Needs sparks AND stability.", "Fire"),
@@ -147,6 +166,8 @@ if st.button("💞 Calculate Love Match"):
     st.markdown(f"**Score:** {score}/100")
     st.markdown(f"**Match Type:** {color_badge[color]}")
     st.info(get_match_description(score))
+    st.markdown(f"**You ({user1})**: {mbti_descriptions[user1]}")
+    st.markdown(f"**Them ({user2})**: {mbti_descriptions[user2]}")
 
     st.subheader("🌟 Zodiac Insights")
     insight1, elem1 = zodiac_signs[zodiac1]
