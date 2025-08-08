@@ -1,111 +1,87 @@
 import streamlit as st
 import random
 
-st.set_page_config(page_title="Love Match Tarot App", page_icon="💘", layout="centered")
-
-st.markdown(
-    "<h1 style='text-align: center; color: pink;'>💘 Kath's Love Matchmaker + Tarot Cards 💘</h1>",
-    unsafe_allow_html=True,
-)
-
-# Tarot card meanings
-tarot_descriptions = {
-    "The Lovers": "Represents harmony, love, and alignment of values.",
-    "The Empress": "Symbolizes beauty, abundance, and nurturing.",
-    "The Chariot": "Indicates determination, control, and victory.",
-    "The Devil": "Represents temptation, passion, or unhealthy attachments.",
-    "The Tower": "Signifies sudden change, upheaval, and revelation.",
-    "The Star": "Symbolizes hope, inspiration, and renewal.",
-    "The Moon": "Represents illusion, intuition, and emotional fluctuation.",
-    "The Sun": "A card of joy, success, and positivity.",
-    "Wheel of Fortune": "Signals fate, karma, and life's cycles.",
-    "Justice": "Symbol of truth, fairness, and law.",
-    "Temperance": "Indicates balance, harmony, and patience.",
-    "Death": "Signifies endings, transformation, and rebirth."
-}
-
+# MBTI Types
 mbti_types = [
-    "INTJ", "INTP", "ENTJ", "ENTP",
-    "INFJ", "INFP", "ENFJ", "ENFP",
-    "ISTJ", "ISFJ", "ESTJ", "ESFJ",
-    "ISTP", "ISFP", "ESTP", "ESFP"
+    "INFP", "ENFP", "INFJ", "ENFJ", "INTJ", "ENTJ", "INTP", "ENTP",
+    "ISFP", "ESFP", "ISTP", "ESTP", "ISFJ", "ESFJ", "ISTJ", "ESTJ"
 ]
 
-def funny_compatibility_summary(score):
-    if score > 90:
-        return "🔥 Soulmate energy! Y’all are like PB & J—sweet, sticky, and destined."
-    elif score > 80:
-        return "💞 A power couple with the occasional rom-com misunderstanding."
-    elif score > 70:
-        return "🫶 Not bad! With snacks and therapy, you could last forever-ish."
-    elif score > 60:
-        return "😬 There’s hope… if Mercury isn’t in retrograde and nobody forgets to text back."
+# Compatibility chart scores
+legend_scores = {
+    "blue": 100,
+    "teal": 75,
+    "olive": 62,
+    "yellow": 50,
+    "red": 25
+}
+
+compatibility_colors = [
+    ["blue","blue","blue","blue","blue","blue","blue","blue","red","red","red","red","red","red","red","red"],
+    ["blue","blue","blue","blue","blue","blue","blue","blue","red","red","red","red","red","red","red","red"],
+    ["blue","blue","blue","blue","blue","blue","blue","blue","red","red","red","red","red","red","red","red"],
+    ["blue","blue","blue","red", "blue","blue","blue","red", "olive","olive","yellow","yellow","yellow","yellow","blue","blue"],
+    ["blue","blue","blue","blue","blue","blue","blue","blue","olive","olive","yellow","yellow","yellow","yellow","blue","blue"],
+    ["blue","blue","blue","blue","blue","blue","blue","blue","olive","olive","yellow","yellow","yellow","yellow","blue","blue"],
+    ["blue","blue","blue","blue","blue","blue","blue","blue","olive","olive","yellow","yellow","yellow","yellow","blue","blue"],
+    ["blue","blue","blue","blue","blue","blue","blue","blue","olive","olive","yellow","yellow","yellow","yellow","blue","blue"],
+    ["red", "blue","red", "olive","olive","olive","olive","olive","olive","yellow","yellow","yellow","yellow","yellow","blue","blue"],
+    ["red", "red", "red", "olive","olive","olive","olive","olive","yellow","yellow","yellow","yellow","yellow","yellow","blue","blue"],
+    ["red", "red", "red", "yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow","blue","blue"],
+    ["red", "red", "red", "yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow","blue","blue"],
+    ["red", "red", "red", "yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow","blue","blue","blue","blue"],
+    ["red", "red", "red", "yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow","yellow","blue","blue","blue","blue"],
+    ["red", "red", "red", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue"],
+    ["red", "red", "red", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue", "blue"]
+]
+
+compatibility_scores = {}
+for i, row_type in enumerate(mbti_types):
+    for j, col_type in enumerate(mbti_types):
+        key = (row_type, col_type)
+        color = compatibility_colors[i][j]
+        score = legend_scores.get(color, 50)
+        compatibility_scores[key] = (score, color)
+
+# Fun match descriptions by tier
+def get_match_description(score):
+    if score >= 90:
+        return "Soulmates written in the stars 💍💖"
+    elif score >= 75:
+        return "A power duo with real couple goals vibes ✨"
+    elif score >= 60:
+        return "Some sparks, some chaos... classic rom-com energy 🎭"
+    elif score >= 45:
+        return "There's potential, but also potential for drama 🍿"
     else:
-        return "🚩 Cosmic red flags detected. Proceed only if you're into emotional roller coasters."
+        return "This might belong in the 🚩 museum. Proceed with popcorn. 🍿🫣"
 
-# Two-column layout for inputs
-with st.form("love_form"):
-    col1, col2 = st.columns(2)
+# Emoji/Color badges
+color_badge = {
+    "blue": "💙 Ideal Match",
+    "teal": "💚 Good Chance",
+    "olive": "💛 One-Sided Match",
+    "yellow": "🧡 Might Work",
+    "red": "❤️‍🔥 Think This One Through"
+}
 
-    with col1:
-        st.subheader("💕 Your Info")
-        name1 = st.text_input("Your Name")
-        mbti1 = st.selectbox("Your MBTI", mbti_types)
-        zodiac1 = st.selectbox("Your Zodiac", [
-            "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
-            "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
-        char1 = st.text_input("Favorite Movie/TV Character")
-        snack1 = st.text_input("Favorite Snack")
+# Streamlit App
+st.set_page_config("MBTI Love Match", page_icon="💘")
+st.title("💘 MBTI Love Match Analyzer")
 
-    with col2:
-        st.subheader("❤️ Partner Info")
-        name2 = st.text_input("Partner's Name")
-        mbti2 = st.selectbox("Partner's MBTI", mbti_types)
-        zodiac2 = st.selectbox("Partner's Zodiac", [
-            "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo",
-            "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"])
-        char2 = st.text_input("Partner's Favorite Movie/TV Character")
-        snack2 = st.text_input("Partner's Favorite Snack")
+col1, col2 = st.columns(2)
+with col1:
+    user1 = st.selectbox("Select Your MBTI Type:", mbti_types, index=0)
+with col2:
+    user2 = st.selectbox("Select Their MBTI Type:", mbti_types, index=1)
 
-    submitted = st.form_submit_button("🔮 Reveal Love Match")
-
-if submitted:
-    st.markdown("## 💞 Compatibility Results")
-    score = random.randint(55, 98)
-    st.success(f"🌹 {name1} and {name2} are **{score}% compatible!**")
-    st.markdown(f"💌 {funny_compatibility_summary(score)}")
-
-    st.markdown(f"""
-### 💖 Couple Vibes:
-- **MBTI Match**: {mbti1} 💘 {mbti2}
-- **Zodiac Signs**: {zodiac1} + {zodiac2}
-- **Fave Characters**: {char1} + {char2}
-- **Snack Combo**: {snack1} & {snack2}
-""")
-
-    st.markdown("## 🃏 Tarot Love Forecast")
-    tarot_cards = list(tarot_descriptions.keys())
-    selected = random.sample(tarot_cards, 3)
-
-    col_past, col_present, col_future = st.columns(3)
-
-    with col_past:
-        st.markdown("### 🌒 Past")
-        st.subheader(selected[0])
-        st.info(tarot_descriptions[selected[0]])
-
-    with col_present:
-        st.markdown("### 🌓 Present")
-        st.subheader(selected[1])
-        st.info(tarot_descriptions[selected[1]])
-
-    with col_future:
-        st.markdown("### 🌕 Future")
-        st.subheader(selected[2])
-        st.info(tarot_descriptions[selected[2]])
-
-    st.markdown("## 🔥 Bonus Modes")
-    if score < 70:
-        st.warning("💔 Roast Mode: Y'all might be cosmic frenemies. Try again in your next life!")
-    else:
-        st.info("💌 Your destiny is written in the stars... and snacks.")
+if st.button("💞 Calculate Love Match"):
+    key = (user1, user2)
+    if key not in compatibility_scores:
+        key = (user2, user1)
+    score, color = compatibility_scores.get(key, (50, "yellow"))
+    st.subheader("❤️ Compatibility Results")
+    st.markdown(f"### **{user1} x {user2}**")
+    st.markdown(f"**Score:** {score}/100")
+    st.markdown(f"**Match Type:** {color_badge[color]}")
+    st.info(get_match_description(score))
